@@ -137,31 +137,37 @@ Use that data to produce two separate outputs for each session:
 
 ## Compact Output First
 
-For recent-session lists and topic searches, the default answer must be a compact Markdown table.
+For recent-session lists and topic searches, the default answer must be a compact per-session block layout, not a Markdown table.
 
-Use exactly these columns in the main table:
+Use exactly this 3-line structure for every session block:
 
-- `Session ID`
-- `О чем вся беседа`
-- `О чем последние 2 сообщения`
+- `Session ID: <full-session-id>`
+- `О чем вся беседа: <one-sentence summary>`
+- `О чем последние 2 сообщения: <one-sentence summary>`
 
 Rules:
 
-- One row per session.
-- Each summary cell should usually be one sentence.
-- Do not dump raw quoted user messages into the table.
+- One session block per session.
+- Keep exactly one blank line between neighboring session blocks.
+- Each summary line should usually be one sentence.
+- Do not dump raw quoted user messages into list mode.
+- Do not render the main answer as a Markdown table unless the user explicitly asks for a table.
 - Do not render the main answer as a long numbered essay unless the user explicitly asks for that format.
-- After the table, add at most one short line that says how many sessions were returned and whether internal sessions were included.
+- After the blocks, add at most one short line that says how many sessions were returned and whether internal sessions were included.
 
 Target shape:
 
 ```markdown
-| Session ID | О чем вся беседа | О чем последние 2 сообщения |
-| --- | --- | --- |
-| 019d... | Сессия про ... | Последние два сообщения были про ... |
+Session ID: 019d...
+О чем вся беседа: Сессия про ...
+О чем последние 2 сообщения: Последние два сообщения были про ...
+
+Session ID: 019d...
+О чем вся беседа: Сессия про ...
+О чем последние 2 сообщения: Последние два сообщения были про ...
 ```
 
-This compact table is the default for:
+This compact block layout is the default for:
 
 - recent-session lists
 - keyword searches
@@ -174,7 +180,7 @@ For a recent-session list:
 
 - include the total number of returned sessions
 - list sessions in descending `updated_at` order
-- use one compact Markdown table as the main output
+- use repeating 3-line session blocks as the main output
 - for each session include:
   - full `session_id`
   - overall discussion description
@@ -186,7 +192,7 @@ For a search result:
 - say what query was used
 - say whether the match is top-level or internal
 - if several sessions match, list all returned sessions up to the requested limit
-- use the same compact Markdown table as the default presentation
+- use the same compact per-session block layout as the default presentation
 
 For an exact session lookup:
 
@@ -211,7 +217,7 @@ Otherwise, run the helper and return the result.
 Before sending the final answer:
 
 1. Confirm that every shown `session_id` is full.
-2. Confirm that list and search results are shown as one compact Markdown table rather than a long numbered list.
+2. Confirm that list and search results are shown as compact 3-line session blocks rather than a table or a long numbered list.
 3. Confirm that overall discussion and "last two messages" are separated clearly.
 4. Confirm that the session count matches the requested or default limit.
 5. Confirm that you did not silently include internal sessions unless the rules above allow it.

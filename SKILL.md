@@ -28,7 +28,7 @@ description: Use when Codex needs to list recent local Codex sessions, find a se
 - The local runtime skill may be exposed through symlinks such as:
   - `~/.codex/skills/skill-codex-list-sessions`
   - `~/.claude/skills/skill-codex-list-sessions`
-- Keep the repository contents deterministic and weak-model-friendly.
+- Keep the repository contents deterministic and easy to follow.
 - Prefer extending the bundled helper over adding long procedural prose when new read behavior is needed.
 
 ## Resolve Context First

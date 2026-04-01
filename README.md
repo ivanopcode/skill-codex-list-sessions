@@ -1,11 +1,6 @@
 # skill-codex-list-sessions
 
-Weak-model-friendly Codex skill for listing recent local Codex sessions with full `session_id` values, compact per-session summaries, and optional exact lookup of trailing user messages.
-
-## Author
-
-Ivan Oparin  
-GitHub: [@ivanopcode](https://github.com/ivanopcode)
+Codex skill for listing recent local Codex sessions with full `session_id` values, compact per-session summaries, and optional exact lookup of trailing user messages.
 
 ## What It Does
 

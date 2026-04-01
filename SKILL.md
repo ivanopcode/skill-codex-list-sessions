@@ -12,7 +12,8 @@ description: Use when Codex needs to list recent local Codex sessions, find a se
 - Show commands only when the user explicitly asks for setup or implementation details.
 - Answer in the user's language unless the user explicitly asks for another language.
 - Keep every `session_id` full. Never shorten it.
-- Keep every quoted last-message text full. Never replace text with `...`, `…`, or paraphrased fragments.
+- For recent-session lists and topic searches, prefer compact summaries over verbatim raw message dumps.
+- Show full raw last-message text only when the user explicitly asks for exact text, verbatim text, or a deep dive into one exact session.
 - Treat "last messages" as the latest user prompts from local Codex history unless the user explicitly asks for a different interpretation.
 - Resolve command paths from this skill file path.
 - If the skill file path is `/abs/path/to/SKILL.md`, then:
@@ -37,19 +38,19 @@ Always start with the bundled helper.
 Default recent-session read:
 
 ```bash
-<sessions-command>
+<sessions-command> --last-messages 2
 ```
 
 That means:
 
 - top-level `cli` sessions only
 - `20` sessions
-- `3` trailing user messages per session
+- `2` trailing user messages per session
 
 Override the limit only when the user asked for a different number:
 
 ```bash
-<sessions-command> --limit <n>
+<sessions-command> --limit <n> --last-messages 2
 ```
 
 If the user asks for more or fewer recent messages inside each session:
@@ -129,10 +130,43 @@ Use that data to produce two separate outputs for each session:
    - one or two sentences about what the session was generally about
    - prefer the session `title` when it is descriptive
    - when the title is generic like `hello` or `привет`, infer the topic from `first_user_message` and the trailing messages instead
-2. **Last user messages**
-   - show the latest user messages as full text
-   - do not shorten them
-   - do not rewrite them into brief fragments unless the user explicitly asked for summaries instead of the original text
+2. **Last two messages summary**
+   - summarize what the latest two user messages were about in one sentence
+   - do not paste the raw texts in list mode
+   - mention exact raw texts only for exact lookup or when the user explicitly asked for verbatim output
+
+## Compact Output First
+
+For recent-session lists and topic searches, the default answer must be a compact Markdown table.
+
+Use exactly these columns in the main table:
+
+- `Session ID`
+- `О чем вся беседа`
+- `О чем последние 2 сообщения`
+
+Rules:
+
+- One row per session.
+- Each summary cell should usually be one sentence.
+- Do not dump raw quoted user messages into the table.
+- Do not render the main answer as a long numbered essay unless the user explicitly asks for that format.
+- After the table, add at most one short line that says how many sessions were returned and whether internal sessions were included.
+
+Target shape:
+
+```markdown
+| Session ID | О чем вся беседа | О чем последние 2 сообщения |
+| --- | --- | --- |
+| 019d... | Сессия про ... | Последние два сообщения были про ... |
+```
+
+This compact table is the default for:
+
+- recent-session lists
+- keyword searches
+
+For exact session lookup, use a short summary block first. Only after that, include the full raw latest messages when the user explicitly asked for exact text or deep inspection.
 
 ## Output Contract
 
@@ -140,11 +174,11 @@ For a recent-session list:
 
 - include the total number of returned sessions
 - list sessions in descending `updated_at` order
+- use one compact Markdown table as the main output
 - for each session include:
   - full `session_id`
   - overall discussion description
-  - a separate section for the latest user messages
-- keep raw message text complete and unshortened
+  - one-sentence summary of what the latest two user messages were about
 - keep `session_id` complete and unshortened
 
 For a search result:
@@ -152,12 +186,14 @@ For a search result:
 - say what query was used
 - say whether the match is top-level or internal
 - if several sessions match, list all returned sessions up to the requested limit
+- use the same compact Markdown table as the default presentation
 
 For an exact session lookup:
 
 - include the full `session_id`
 - include the overall discussion description
-- include the latest user messages
+- include a short summary of the latest two user messages
+- include the raw latest user messages only when the user explicitly asked for exact text or the exact lookup clearly implies deep inspection
 - mention if the session was not found exactly
 
 ## Ask Only If Blocked
@@ -175,9 +211,10 @@ Otherwise, run the helper and return the result.
 Before sending the final answer:
 
 1. Confirm that every shown `session_id` is full.
-2. Confirm that every shown last-message text is full.
-3. Confirm that overall discussion and last messages are separated clearly.
+2. Confirm that list and search results are shown as one compact Markdown table rather than a long numbered list.
+3. Confirm that overall discussion and "last two messages" are separated clearly.
 4. Confirm that the session count matches the requested or default limit.
 5. Confirm that you did not silently include internal sessions unless the rules above allow it.
+6. Confirm that you did not paste raw full messages in list or search mode unless the user explicitly asked for exact text.
 
 If any answer is "no", keep working instead of finalizing.

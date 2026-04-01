@@ -1,6 +1,6 @@
 # skill-codex-list-sessions
 
-Weak-model-friendly Codex skill for listing recent local Codex sessions with full `session_id` values, session-level discussion summaries, and full trailing user messages.
+Weak-model-friendly Codex skill for listing recent local Codex sessions with full `session_id` values, compact table-ready summaries, and optional exact lookup of trailing user messages.
 
 ## Author
 
@@ -15,6 +15,7 @@ GitHub: [@ivanopcode](https://github.com/ivanopcode)
 - supports exact `session_id` lookup
 - supports keyword search such as `glab`, `youtrack`, or `worktree`
 - can include internal `exec` and `subagent` sessions when explicitly requested
+- defaults to a compact recent window of the latest `2` user messages per session
 
 ## Main Files
 

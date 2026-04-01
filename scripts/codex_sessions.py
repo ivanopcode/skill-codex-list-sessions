@@ -16,7 +16,7 @@ from typing import Any
 DEFAULT_STATE_DB = Path.home() / ".codex" / "state_5.sqlite"
 DEFAULT_HISTORY_FILE = Path.home() / ".codex" / "history.jsonl"
 DEFAULT_LIMIT = 20
-DEFAULT_LAST_MESSAGES = 3
+DEFAULT_LAST_MESSAGES = 2
 GENERIC_TITLES = {
     "",
     ".",

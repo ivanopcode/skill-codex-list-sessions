@@ -1,0 +1,18 @@
+{
+  "locales": {
+    "en": {
+      "description": "Codex sessions: recent sessions, topic search, exact session lookup, full session IDs, and latest user messages.",
+      "display_name": "skill-codex-list-sessions",
+      "short_description": "Codex sessions, IDs, recent history",
+      "default_prompt": "Use $skill-codex-list-sessions to list recent Codex sessions, find sessions by topic, recover full session IDs, and summarize the latest user messages.",
+      "local_prefix": "[local] "
+    },
+    "ru": {
+      "description": "Сессии Codex: последние сессии, поиск по теме, точный поиск по session_id, полные session ID и последние сообщения пользователя.",
+      "display_name": "skill-codex-list-sessions",
+      "short_description": "Сессии Codex, ID, история",
+      "default_prompt": "Используй $skill-codex-list-sessions, чтобы показать последние сессии Codex, найти сессию по теме, восстановить полный session ID и свести последние сообщения пользователя.",
+      "local_prefix": "[локально] "
+    }
+  }
+}

@@ -17,8 +17,21 @@ Codex skill for listing recent local Codex sessions with full `session_id` value
 
 - `SKILL.md` — runtime instructions for Codex
 - `agents/openai.yaml` — UI-facing metadata
+- `locales/metadata.json` — localized user-facing metadata
+- `.skill_triggers/<locale>.md` — localized trigger catalogs used to render `SKILL.md`
+- `scripts/setup_main.py`, `scripts/setup_support.py` — managed global install flow
 - `scripts/codex_sessions.py` — deterministic JSON-producing helper
 - `scripts/codex-sessions` — thin shell wrapper
+
+## Install
+
+Install or update the managed copy with:
+
+```bash
+make install LOCALE=ru-en
+```
+
+This creates a managed runtime copy under `${XDG_DATA_HOME:-~/.local/share}/agents/skills/skill-codex-list-sessions`, renders localized metadata plus trigger previews from `.skill_triggers`, and refreshes the symlinks in `~/.claude/skills/skill-codex-list-sessions` and `~/.codex/skills/skill-codex-list-sessions`.
 
 ## Local Usage
 
@@ -29,13 +42,6 @@ Codex skill for listing recent local Codex sessions with full `session_id` value
 ./scripts/codex-sessions --session-id 019d4543-0d6c-7c50-9c21-b2fe17105c33
 ./scripts/codex-sessions --include-internal --limit 10
 ```
-
-## Skill Runtime Paths
-
-Typical local symlinks:
-
-- `~/.codex/skills/skill-codex-list-sessions`
-- `~/.claude/skills/skill-codex-list-sessions`
 
 ## License
 

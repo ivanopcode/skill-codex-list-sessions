@@ -1,6 +1,16 @@
 ---
 name: skill-codex-list-sessions
-description: Use when Codex needs to list recent local Codex sessions, find a session by topic or keyword, recover full session ids, or summarize what a session was generally about plus what the latest user messages said. Reads local Codex history from ~/.codex/state_5.sqlite and ~/.codex/history.jsonl through the bundled helper. Default to 20 top-level cli sessions unless the user asks for a different limit or explicitly wants internal exec or subagent sessions too.
+description: Codex sessions: recent sessions, topic search, exact session lookup, full session IDs, and latest user messages.
+triggers:
+  - "skill-codex-list-sessions"
+  - "codex sessions"
+  - "recent codex sessions"
+  - "list codex sessions"
+  - "find codex session"
+  - "codex session id"
+  - "latest codex sessions"
+  - "codex session search"
+  - "last codex messages"
 ---
 
 # Codex Sessions

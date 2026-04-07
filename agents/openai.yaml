@@ -1,4 +1,4 @@
 interface:
-  display_name: "Codex Sessions"
-  short_description: "List recent Codex sessions with full IDs"
-  default_prompt: "Use $skill-codex-list-sessions to list recent Codex sessions with full session IDs, overall discussion summaries, and the full last user messages."
+  display_name: "skill-codex-list-sessions"
+  short_description: "Codex sessions, IDs, recent history"
+  default_prompt: "Use $skill-codex-list-sessions to list recent Codex sessions, find sessions by topic, recover full session IDs, and summarize the latest user messages."

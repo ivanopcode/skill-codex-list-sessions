@@ -73,7 +73,7 @@ def parse_args() -> argparse.Namespace:
         "--last-messages",
         type=int,
         default=DEFAULT_LAST_MESSAGES,
-        help="How many trailing user messages to include for each session. Default: 3.",
+        help="How many trailing user messages to include for each session. Default: 2.",
     )
     parser.add_argument(
         "--query",
